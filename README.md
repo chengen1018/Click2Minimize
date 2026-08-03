@@ -6,7 +6,6 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/hatimhtm/Click2Minimize/releases/latest"><img src="https://img.shields.io/github/v/release/hatimhtm/Click2Minimize?style=for-the-badge&label=DOWNLOAD&labelColor=1A1A1A&color=CCFF00" alt="Latest release" /></a>
   <img src="https://img.shields.io/badge/macOS-13.0+-1A1A1A?style=for-the-badge&logo=apple&logoColor=CCFF00" alt="macOS 13+" />
   <img src="https://img.shields.io/badge/Swift-5-1A1A1A?style=for-the-badge&logo=swift&logoColor=CCFF00" alt="Swift 5" />
   <img src="https://img.shields.io/badge/Xcode-16-1A1A1A?style=for-the-badge&logo=xcode&logoColor=CCFF00" alt="Xcode 16" />
@@ -28,7 +27,7 @@ The changes in this repository are maintained by **Chengen** and currently focus
 - visible-window-first Dock toggling;
 - restoring all minimized windows for an application, including windows minimized manually before the toggle;
 - safer Finder handling that only acts on standard Finder windows;
-- local decision tests and design documentation.
+- local decision tests.
 
 This project is for personal, educational, research, and other permitted noncommercial use. It is not an independent from-scratch implementation of Click2Minimize.
 
@@ -78,12 +77,12 @@ When you click the dock icon of an already-focused app, macOS does nothing — t
 | | |
 |---|---|
 | **No window** | `LSUIElement`-style accessory app; lives only in the menu bar |
-| **No telemetry** | Zero network calls except the GitHub releases check on launch |
+| **No telemetry** | The current startup path makes no network calls |
 | **No background daemon** | Just one process, registers a `CGEvent` tap via Accessibility |
 | **Modern Swift logging** | `os.Logger` with subsystem + privacy modifiers; no `print()` spam in Release |
 | **Opt-in launch-at-login** | SwiftUI toggle wires `SMAppService.mainApp` register/unregister; was unconditional before 1.5 |
 | **Fallback dock scan** | If `AXUIElement` can't read the dock list, an AppleScript fallback recovers app names from `System Events` |
-| **Universal binary** | `xcodebuild -configuration Release` produces arm64 + x86_64; ad-hoc signed DMG |
+| **Universal binary** | `build_dmg.sh` requests arm64 + x86_64 and creates an ad-hoc signed DMG |
 | **Source-available** | PolyForm Noncommercial 1.0.0 — read it, learn from it, run it personally, don't ship it |
 
 ---
@@ -103,23 +102,26 @@ When you click the dock icon of an already-focused app, macOS does nothing — t
 
 ### `/// INSTALL`
 
-1. Grab the latest `.dmg` from [Releases](../../releases/latest).
-2. Open it, drag `Click2Minimize.app` into `/Applications`.
-3. Launch it. You'll be prompted for **Accessibility** permission — open System Settings → Privacy & Security → Accessibility, toggle Click2Minimize on.
-4. If you use Catalyst / Electron apps and want the fallback to work cleanly, also grant **Automation** (asked on first need).
+This repository does not currently publish its own Release or downloadable DMG. Build the app locally by following [BUILD FROM SOURCE](#-build-from-source), or open the Xcode project and use **Product → Build**.
 
-The DMG is ad-hoc signed, so the first launch will need a right-click → Open to get past Gatekeeper.
+After building, launch `Click2Minimize.app` and grant **Accessibility** permission in System Settings → Privacy & Security → Accessibility. If you use Catalyst / Electron apps and want the fallback to work cleanly, also grant **Automation** when macOS asks.
+
+Locally built releases are ad-hoc signed, so the first launch may require right-click → **Open** to get past Gatekeeper.
 
 ---
 
 ### `/// BUILD FROM SOURCE`
 
 ```bash
-git clone https://github.com/hatimhtm/Click2Minimize.git
+git clone https://github.com/chengen1018/Click2Minimize.git
 cd Click2Minimize
 
+# Open the project in Xcode
+open Click2Minimize.xcodeproj
+
 # Release build into ./build
-xcodebuild -scheme Click2Minimize -configuration Release -derivedDataPath build
+xcodebuild -project Click2Minimize.xcodeproj -scheme Click2Minimize \
+  -configuration Release -derivedDataPath build
 
 # Or build the full DMG in ./dist
 ./build_dmg.sh
@@ -136,18 +138,6 @@ Requires Xcode 15+. Targets macOS 13.0+.
 - **Allowed**: reading, learning, personal use, hobby use, non-profit / educational / research use, forking to improve, distributing your fork under the same license.
 - **Not allowed**: shipping it inside a paid product, selling support for it, embedding it in commercial software, any commercial use.
 
-If you want a commercial license, [open an issue](../../issues) or [book a call](https://cal.com/hatimelhassak/engineering-discovery).
+Read [LICENSE](LICENSE) and [NOTICE.md](NOTICE.md) before redistributing or publishing changes.
 
 ---
-
-<p align="center">
-  <a href="https://hatimelhassak.is-a.dev"><img src="https://img.shields.io/badge/PORTFOLIO-1A1A1A?style=for-the-badge&logo=vercel&logoColor=CCFF00" alt="Portfolio" /></a>
-  <a href="https://cal.com/hatimelhassak/engineering-discovery"><img src="https://img.shields.io/badge/BOOK_A_CALL-CCFF00?style=for-the-badge&logo=googlecalendar&logoColor=1A1A1A" alt="Book a call" /></a>
-  <a href="https://www.linkedin.com/in/hatim-elhassak/"><img src="https://img.shields.io/badge/LINKEDIN-1A1A1A?style=for-the-badge&logo=linkedin&logoColor=CCFF00" alt="LinkedIn" /></a>
-  <a href="mailto:hatimelhassak.official@gmail.com"><img src="https://img.shields.io/badge/EMAIL-1A1A1A?style=for-the-badge&logo=gmail&logoColor=CCFF00" alt="Email" /></a>
-  <a href="https://buymeacoffee.com/hatimelhassak"><img src="https://img.shields.io/badge/BUY_ME_A_COFFEE-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=1A1A1A" alt="Buy Me A Coffee" /></a>
-</p>
-
-<p align="center">
-  <code>///&nbsp;&nbsp;OPEN FOR NEW WORK&nbsp;&nbsp;///&nbsp;&nbsp;CONTRACT &amp; FREELANCE&nbsp;&nbsp;///&nbsp;&nbsp;REMOTE WORLDWIDE&nbsp;&nbsp;///</code>
-</p>
