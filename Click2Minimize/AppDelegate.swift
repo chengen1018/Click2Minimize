@@ -38,7 +38,6 @@ struct Click2MinimizeApp: App {
            let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
             appDelegate.currentVersion = "\(version).\(build)" // Combine version and build number
         }
-        appDelegate.checkForUpdates()
     }
 }
 
@@ -220,15 +219,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             return Unmanaged.passUnretained(event)
         }
 
-        let minimized = AppDelegate.minimizeAppWindows(for: app)
-        if minimized {
-            log.debug("minimized windows for: \(app.localizedName ?? "Unknown", privacy: .public)")
+        let toggled = AppDelegate.toggleAppWindows(for: app)
+        if toggled {
+            log.debug("toggled windows for: \(app.localizedName ?? "Unknown", privacy: .public)")
             return nil
         }
         return Unmanaged.passUnretained(event)
     }
 
-    static func minimizeAppWindows(for app: NSRunningApplication) -> Bool {
+    static func toggleAppWindows(for app: NSRunningApplication) -> Bool {
         let appElement = AXUIElementCreateApplication(app.processIdentifier)
         var windowsRef: CFTypeRef?
         let result = AXUIElementCopyAttributeValue(appElement, kAXWindowsAttribute as CFString, &windowsRef)
@@ -237,19 +236,31 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             return false
         }
         
-        var minimizedAny = false
+        var visibleWindows: [AXUIElement] = []
+        var minimizedWindows: [AXUIElement] = []
         for window in windows {
             var minimizedRef: CFTypeRef?
             if AXUIElementCopyAttributeValue(window, kAXMinimizedAttribute as CFString, &minimizedRef) == .success,
-               let isMinimized = minimizedRef as? Bool, isMinimized == false {
-                
-                let setStatus = AXUIElementSetAttributeValue(window, kAXMinimizedAttribute as CFString, true as CFTypeRef)
-                if setStatus == .success {
-                    minimizedAny = true
+               let isMinimized = minimizedRef as? Bool {
+                if app.bundleIdentifier == "com.apple.finder" {
+                    var roleRef: CFTypeRef?
+                    var subroleRef: CFTypeRef?
+                    guard AXUIElementCopyAttributeValue(window, kAXRoleAttribute as CFString, &roleRef) == .success,
+                          AXUIElementCopyAttributeValue(window, kAXSubroleAttribute as CFString, &subroleRef) == .success,
+                          roleRef as? String == kAXWindowRole,
+                          subroleRef as? String == kAXStandardWindowSubrole else { continue }
                 }
+                if isMinimized { minimizedWindows.append(window) } else { visibleWindows.append(window) }
             }
         }
-        return minimizedAny
+        let targets: [AXUIElement]
+        let value: Bool
+        if !visibleWindows.isEmpty { targets = visibleWindows; value = true }
+        else if !minimizedWindows.isEmpty { targets = minimizedWindows; value = false }
+        else { return false }
+        return targets.contains {
+            AXUIElementSetAttributeValue($0, kAXMinimizedAttribute as CFString, value as CFTypeRef) == .success
+        }
     }
 
     /// True if the frontmost (non-Click2Minimize) app has at least one fullscreen window.
