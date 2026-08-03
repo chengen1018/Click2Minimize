@@ -20,8 +20,10 @@ This entry records the current derivative-work snapshot. It is not an upstream C
 
 This is a derivative work based on [Click2Minimize](https://github.com/hatimhtm/Click2Minimize) by Hatim El Hassak. See [NOTICE.md](NOTICE.md) and [LICENSE](LICENSE).
 
-## 2026-08-03 — multi-window and Steam fixes
+## 2026-08-03 — multi-window behavior fixes
 
 - Apply minimize/restore operations to multiple AX windows sequentially, allowing apps with asynchronous window updates to process every window.
-- Resolve Dock app names by preferring the current frontmost process and then a same-name process with accessible windows, avoiding Steam Helper selection.
-- Toggle Steam's main process and `com.valvesoftware.steam.helper` together because Steam's visible UI spans both processes.
+
+## 2026-08-03 — remove Steam-specific handling
+
+- Removed the Steam process-grouping workaround; Steam now follows the same generic Dock toggle path as other applications.
