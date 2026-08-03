@@ -206,9 +206,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
 
         let runningApps = NSWorkspace.shared.runningApplications
-        guard let app = runningApps.first(where: {
+        let matchingApps = runningApps.filter {
             $0.localizedName == dockItem.appID || $0.localizedName == appDelegate.appDict[dockItem.appID]
-        }) else {
+        }
+        let frontmostPID = NSWorkspace.shared.frontmostApplication?.processIdentifier
+        guard let app = matchingApps.first(where: { $0.processIdentifier == frontmostPID })
+            ?? matchingApps.first(where: { AppDelegate.hasAccessibleWindows($0) })
+            ?? matchingApps.first else {
             log.debug("no running application matched dock item: \(dockItem.appID, privacy: .public)")
             return Unmanaged.passUnretained(event)
         }
@@ -258,9 +262,24 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if !visibleWindows.isEmpty { targets = visibleWindows; value = true }
         else if !minimizedWindows.isEmpty { targets = minimizedWindows; value = false }
         else { return false }
-        return targets.contains {
-            AXUIElementSetAttributeValue($0, kAXMinimizedAttribute as CFString, value as CFTypeRef) == .success
+        // Some applications update their AX window list asynchronously after the
+        // first minimize/restore. Apply one window at a time so every target gets
+        // a stable accessibility transaction instead of racing the app's update.
+        for (index, target) in targets.enumerated() {
+            let delay = 0.045 * Double(index)
+            DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+                _ = AXUIElementSetAttributeValue(target, kAXMinimizedAttribute as CFString, value as CFTypeRef)
+            }
         }
+        return !targets.isEmpty
+    }
+
+    private static func hasAccessibleWindows(_ app: NSRunningApplication) -> Bool {
+        let element = AXUIElementCreateApplication(app.processIdentifier)
+        var windowsRef: CFTypeRef?
+        guard AXUIElementCopyAttributeValue(element, kAXWindowsAttribute as CFString, &windowsRef) == .success,
+              let windows = windowsRef as? [AXUIElement] else { return false }
+        return !windows.isEmpty
     }
 
     /// True if the frontmost (non-Click2Minimize) app has at least one fullscreen window.

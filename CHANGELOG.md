@@ -19,3 +19,8 @@ This entry records the current derivative-work snapshot. It is not an upstream C
 ### Attribution
 
 This is a derivative work based on [Click2Minimize](https://github.com/hatimhtm/Click2Minimize) by Hatim El Hassak. See [NOTICE.md](NOTICE.md) and [LICENSE](LICENSE).
+
+## 2026-08-03 — multi-window and Steam fixes
+
+- Apply minimize/restore operations to multiple AX windows sequentially, allowing apps with asynchronous window updates to process every window.
+- Resolve Dock app names by preferring the current frontmost process and then a same-name process with accessible windows, avoiding Steam Helper selection.
