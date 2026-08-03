@@ -19,11 +19,25 @@
 
 ---
 
+### `/// PROJECT ORIGIN & ATTRIBUTION`
+
+This repository is a derivative work based on [Click2Minimize](https://github.com/hatimhtm/Click2Minimize) by Hatim El Hassak. The original project and its source code remain subject to the [PolyForm Noncommercial 1.0.0 license](LICENSE).
+
+The changes in this repository are maintained by **Chengen** and currently focus on:
+
+- visible-window-first Dock toggling;
+- restoring all minimized windows for an application, including windows minimized manually before the toggle;
+- safer Finder handling that only acts on standard Finder windows;
+- local decision tests and design documentation.
+
+This project is for personal, educational, research, and other permitted noncommercial use. It is not an independent from-scratch implementation of Click2Minimize.
+
 ### `/// WHAT IT DOES`
 
 When you click the dock icon of an already-focused app, macOS does nothing — the click just re-activates an app that's already active. Click2Minimize swaps that no-op for the obvious behaviour: minimize the app's windows. Click again to bring them back. Like the Windows taskbar, but on macOS.
 
 - Click a **focused** app's dock icon → windows minimize.
+- Click the focused app's icon when all its eligible windows are minimized → all eligible windows restore.
 - Click an **unfocused** app's icon → default macOS behaviour (focus, raise).
 - Click **Launchpad / Trash / Downloads** → default behaviour (these have no windows to minimize).
 - App is **fullscreen** → pass-through (no minimize, you didn't mean it).
