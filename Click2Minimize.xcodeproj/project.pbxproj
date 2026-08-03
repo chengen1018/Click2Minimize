@@ -10,6 +10,7 @@
 		21498BA82D00A20600EE1BF3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21498BA72D00A20600EE1BF3 /* ContentView.swift */; };
 		21B199F72CFF981D00EA628D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21B199F62CFF981D00EA628D /* Assets.xcassets */; };
 		21B19A052CFF9D1300EA628D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B19A042CFF9D1300EA628D /* AppDelegate.swift */; };
+		21B19A0B2CFF9D1300EA628D /* WindowToggleDecision.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B19A0C2CFF9D1300EA628D /* WindowToggleDecision.swift */; };
 		21E5E2E72D009E7E00B51E70 /* Accessibility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21E5E2E62D009E7E00B51E70 /* Accessibility.framework */; };
 /* End PBXBuildFile section */
 
@@ -19,6 +20,7 @@
 		21B199F62CFF981D00EA628D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		21B199FB2CFF981D00EA628D /* Click2Minimize.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Click2Minimize.entitlements; sourceTree = "<group>"; };
 		21B19A042CFF9D1300EA628D /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		21B19A0C2CFF9D1300EA628D /* WindowToggleDecision.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowToggleDecision.swift; sourceTree = "<group>"; };
 		21B19A082D009C6E00EA628D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		21E5E2E62D009E7E00B51E70 /* Accessibility.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accessibility.framework; path = System/Library/Frameworks/Accessibility.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -58,6 +60,7 @@
 				21498BA72D00A20600EE1BF3 /* ContentView.swift */,
 				21B19A082D009C6E00EA628D /* Info.plist */,
 				21B19A042CFF9D1300EA628D /* AppDelegate.swift */,
+				21B19A0C2CFF9D1300EA628D /* WindowToggleDecision.swift */,
 				21B199F62CFF981D00EA628D /* Assets.xcassets */,
 				21B199FB2CFF981D00EA628D /* Click2Minimize.entitlements */,
 			);
@@ -143,6 +146,7 @@
 			files = (
 				21498BA82D00A20600EE1BF3 /* ContentView.swift in Sources */,
 				21B19A052CFF9D1300EA628D /* AppDelegate.swift in Sources */,
+				21B19A0B2CFF9D1300EA628D /* WindowToggleDecision.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

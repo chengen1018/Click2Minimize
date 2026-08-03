@@ -24,3 +24,4 @@ This is a derivative work based on [Click2Minimize](https://github.com/hatimhtm/
 
 - Apply minimize/restore operations to multiple AX windows sequentially, allowing apps with asynchronous window updates to process every window.
 - Resolve Dock app names by preferring the current frontmost process and then a same-name process with accessible windows, avoiding Steam Helper selection.
+- Toggle Steam's main process and `com.valvesoftware.steam.helper` together because Steam's visible UI spans both processes.

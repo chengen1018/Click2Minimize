@@ -223,9 +223,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             return Unmanaged.passUnretained(event)
         }
 
-        let toggled = AppDelegate.toggleAppWindows(for: app)
+        let appsToToggle = AppDelegate.relatedApplications(for: app)
+        let toggled = appsToToggle.reduce(false) { didToggle, candidate in
+            AppDelegate.toggleAppWindows(for: candidate) || didToggle
+        }
         if toggled {
-            log.debug("toggled windows for: \(app.localizedName ?? "Unknown", privacy: .public)")
+            log.debug("toggled windows for: \(app.localizedName ?? "Unknown", privacy: .public), process count: \(appsToToggle.count, privacy: .public)")
             return nil
         }
         return Unmanaged.passUnretained(event)
@@ -280,6 +283,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         guard AXUIElementCopyAttributeValue(element, kAXWindowsAttribute as CFString, &windowsRef) == .success,
               let windows = windowsRef as? [AXUIElement] else { return false }
         return !windows.isEmpty
+    }
+
+    private static func relatedApplications(for app: NSRunningApplication) -> [NSRunningApplication] {
+        guard let bundleIdentifier = app.bundleIdentifier else { return [app] }
+        let relatedBundleIdentifiers = Set(
+            steamRelatedBundleIdentifiers(bundleIdentifier: bundleIdentifier)
+        )
+        let related = NSWorkspace.shared.runningApplications.filter {
+            guard let candidateBundleIdentifier = $0.bundleIdentifier else { return false }
+            return relatedBundleIdentifiers.contains(candidateBundleIdentifier)
+        }
+        return related.isEmpty ? [app] : related
     }
 
     /// True if the frontmost (non-Click2Minimize) app has at least one fullscreen window.
