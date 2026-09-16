@@ -1,4 +1,8 @@
 <p align="center">
+  <a href="README.md">English</a> | <a href="README.zh-TW.md">繁體中文</a>
+</p>
+
+<p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="assets/hero-banner-dark.svg" />
     <img src="assets/hero-banner.svg" alt="Click2Minimize" width="100%" />
@@ -54,7 +58,7 @@ When you click the dock icon of an already-focused app, macOS does nothing — t
                                                             │ debounced 300ms
                                                             ▼
 ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────────────┐
-│ CGEvent tap     │───▶│ hit-test mouse  │───▶│ AppleScript query Dock  │
+│ CGEvent tap     │───▶│ hit-test mouse  │    │ AppleScript query Dock  │
 │ (left mousedown)│    │ vs dock rects   │    │ → rects + app names     │
 └─────────────────┘    └─────────────────┘    └─────────────────────────┘
                                 │
@@ -83,7 +87,7 @@ When you click the dock icon of an already-focused app, macOS does nothing — t
 | **Opt-in launch-at-login** | SwiftUI toggle wires `SMAppService.mainApp` register/unregister; was unconditional before 1.5 |
 | **Fallback dock scan** | If `AXUIElement` can't read the dock list, an AppleScript fallback recovers app names from `System Events` |
 | **Universal binary** | `build_dmg.sh` requests arm64 + x86_64 and creates an ad-hoc signed DMG |
-| **Source-available** | PolyForm Noncommercial 1.0.0 — read it, learn from it, run it personally, don't ship it |
+| **Source-available** | PolyForm Noncommercial 1.0.0 — read it, learn from it, run it personally, don't include it in commercial products |
 
 ---
 
