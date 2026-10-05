@@ -1,141 +1,67 @@
-<p align="center">
-  <a href="README.md">English</a> | <a href="README.zh-TW.md">繁體中文</a>
-</p>
+<p align="center"><a href="README.md">English</a> · <strong>繁體中文</strong></p>
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/hero-banner-dark.svg" />
-    <img src="assets/hero-banner.svg" alt="Click2Minimize" width="100%" />
+    <source media="(prefers-color-scheme: dark)" srcset="assets/hero-banner-zh-TW-dark.svg">
+    <img src="assets/hero-banner-zh-TW.svg" alt="Click2Minimize：點擊目前使用中 App 的 Dock 圖示，即可縮小或還原視窗" width="100%">
   </picture>
 </p>
 
-<p align="center">
-  <img src="https://img.shields.io/badge/macOS-13.0+-1A1A1A?style=for-the-badge&logo=apple&logoColor=CCFF00" alt="macOS 13+" />
-  <img src="https://img.shields.io/badge/Swift-5-1A1A1A?style=for-the-badge&logo=swift&logoColor=CCFF00" alt="Swift 5" />
-  <img src="https://img.shields.io/badge/Xcode-16-1A1A1A?style=for-the-badge&logo=xcode&logoColor=CCFF00" alt="Xcode 16" />
-  <a href="LICENSE"><img src="https://img.shields.io/badge/LICENSE-POLYFORM_NC-1A1A1A?style=for-the-badge&labelColor=1A1A1A&color=CCFF00" alt="PolyForm Noncommercial" /></a>
-</p>
+<p align="center"><strong>點一下 Dock 圖示，讓視窗暫時退到一旁。</strong><br>
+Click2Minimize 是一款輕巧的 macOS 選單列工具，讓目前使用中 App 的 Dock 圖示成為縮小與還原視窗的開關。</p>
 
-<p align="center">
-  <em><strong>點一下 App 的 Dock 圖示，就能將它的視窗縮到最小。</strong>macOS 預設沒有這項操作行為，Click2Minimize 透過約 570 行 Swift 程式碼補上了這個功能。它是一款選單列輔助工具，沒有主視窗，也不收集遙測資料；透過事件監聽（event tap），搭配「輔助使用」API 與 AppleScript 和 Dock 互動。可免費供個人使用，不得用於商業用途（詳見 <a href="LICENSE">LICENSE</a>）。</em>
-</p>
+<p align="center">macOS 13+ · Swift 5 · Xcode 15+ 建置 · <a href="LICENSE">PolyForm Noncommercial 1.0.0</a></p>
 
----
+> **關於這個衍生版本：**本專案以 [Hatim El Hassak 的 Click2Minimize](https://github.com/hatimhtm/Click2Minimize) 為基礎，由 Chengen 維護。請參閱[本版本的改動](#本版本的改動)、[NOTICE.md](NOTICE.md) 與[授權條款](LICENSE)。
 
-### `/// 專案來源與致謝`
+## 點擊後會發生什麼事？
 
-本儲存庫是以 Hatim El Hassak 開發的 [Click2Minimize](https://github.com/hatimhtm/Click2Minimize) 為基礎的衍生作品。原始專案及其原始碼仍受 [PolyForm Noncommercial 1.0.0 授權條款](LICENSE) 規範。
+| 點擊的 Dock 項目 | 結果 |
+| --- | --- |
+| 目前使用中的 App，且有可見視窗 | 將符合條件的可見視窗縮到最小。 |
+| 目前使用中的 App，沒有可見視窗但有已縮小視窗 | 還原符合條件的已縮小視窗，包括先前手動縮小的視窗。 |
+| 其他 App、Launchpad／垃圾桶／下載項目，或最前方 App 處於全螢幕 | 由 macOS 照原本方式處理點擊。 |
 
-本儲存庫的修改由 **Chengen** 維護，目前著重於：
+切換依據是 App 當下的視窗狀態；程式不另外記錄哪些視窗是由自己縮小的。對 Finder，程式只處理標準 Finder 視窗。若某個 App 沒有透過 macOS「輔助使用」公開視窗，則可能無法操作。
 
-- 切換 Dock 圖示對應視窗的狀態時，優先處理可見視窗；
-- 還原 App 所有已縮到最小的視窗，包括切換前手動縮到最小的視窗；
-- 更安全地處理 Finder，只對標準 Finder 視窗進行操作；
-- 用於驗證判斷邏輯的本機測試。
+## 開始使用
 
-本專案供個人、教育、研究及其他授權允許的非商業用途使用，並非從零獨立實作的 Click2Minimize。
-
-### `/// 功能說明`
-
-在 macOS 上，點擊目前使用中 App 的 Dock 圖示，通常不會有任何變化，只會再次啟用已經在使用中的 App。Click2Minimize 讓這個操作改為將 App 的視窗縮到最小，再點一次即可還原，就像 Windows 工作列的操作方式。
-
-- 點擊**目前使用中** App 的 Dock 圖示 → 將視窗縮到最小。
-- 當目前使用中 App 所有符合操作條件的視窗都已縮到最小時，再點擊圖示 → 還原所有符合條件的視窗。
-- 點擊**非使用中** App 的圖示 → 保留 macOS 預設行為（啟用 App，將視窗帶到最前方）。
-- 點擊 **Launchpad／垃圾桶／下載項目** → 保留預設行為（這些項目沒有可縮到最小的視窗）。
-- App 處於**全螢幕**模式 → 不攔截操作，也不將視窗縮到最小。
-
----
-
-### `/// 運作原理`
-
-```text
-NSWorkspace 通知（啟動 App／啟用 App／切換桌面空間）
-  → 等待最後一次事件後 300 毫秒（防抖動）
-  → 透過 AppleScript 查詢 Dock
-  → 更新 Dock 圖示範圍與 App 名稱的快取
-
-CGEvent 事件監聽（滑鼠左鍵按下）
-  → 比對滑鼠位置與 Dock 圖示範圍
-  → 透過 AXUIElement 將 App 各個可見視窗的
-    kAXMinimized 設為 true
-```
-
-- **事件監聽**使用 `cghidEventTap`／`tailAppendEventTap`，只擷取滑鼠左鍵按下事件。
-- **Dock 圖示範圍**會儲存在快取中，並採用 300 毫秒的尾端防抖動機制更新；短時間內連續觸發的 `didLaunch / didActivate / activeSpaceDidChange` 事件會合併為一次 AppleScript 呼叫。
-- **將視窗縮到最小**使用 `AXUIElementSetAttributeValue(kAXMinimizedAttribute)`，透過正式的輔助使用 API 操作，而非模擬按鍵。
-- **全螢幕偵測**會讀取最前方 App 視窗的 `AXFullScreen` 屬性（於 1.5 重寫；舊版誤查了 Click2Minimize 自己的視窗）。
-
----
-
-### `/// 特色`
-
-| | |
-|---|---|
-| **沒有主視窗** | 採用 `LSUIElement` 類型的輔助 App 模式，只顯示在選單列 |
-| **不收集遙測資料** | 目前的啟動流程不會發出網路請求 |
-| **沒有背景常駐服務** | 只有一個程序，透過輔助使用權限註冊 `CGEvent` 事件監聽 |
-| **現代 Swift 日誌** | 使用 `os.Logger`，搭配子系統識別與隱私修飾設定；Release 版本不再大量呼叫 `print()` |
-| **自行選擇登入時啟動** | SwiftUI 開關透過 `SMAppService.mainApp` 註冊或取消註冊；1.5 之前為無條件啟用 |
-| **Dock 掃描備援** | 若 `AXUIElement` 無法讀取 Dock 清單，會改用 AppleScript，從 `System Events` 取得 App 名稱 |
-| **通用執行檔** | `build_dmg.sh` 指定建置 arm64 與 x86_64 架構，並產生以 ad-hoc 方式簽署的 DMG |
-| **原始碼公開** | 採用 PolyForm Noncommercial 1.0.0 授權，可閱讀、學習與個人使用，不得用於商業產品 |
-
----
-
-### `/// 2.1 — 相較於 2.0 的變更`
-
-- **修正**：`isActiveAppFullscreen()` 原本檢查的是 Click2Minimize 自己的 `NSWindow`，因此總是回傳 false。現已改為透過輔助使用 API 讀取最前方 App 的 `AXFullScreen` 屬性。
-- **修正**：Dock 項目排除清單原本使用 `"Launchpad||Trash||Downloads".contains(name)` 進行子字串比對，會誤判「TrashCan」或任何名稱包含「Trash」的 App。現已改為正確的 `Set` 成員判斷。
-- **修正**：Dock 更新的防抖動機制原本在每次事件觸發時執行，再於 0.5 秒內抑制後續事件，未真正合併密集事件。現已使用 `DispatchWorkItem` 改寫為 300 毫秒的尾端防抖動。
-- **改善**：所有 `print()` 呼叫已改為搭配隱私修飾設定的 `os.Logger`，Release 建置不再寫入標準輸出。
-- **改善**：登入時啟動改為由使用者在設定中自行開啟。先前已自動註冊的安裝版本會保留註冊狀態，直到使用者關閉此選項。
-- **改善**：重新設計設定面板，加入登入時啟動選項、調整間距，並固定註腳位置。
-- **改善**：以 `openApplication(at:configuration:completionHandler:)` 取代已棄用的 `NSWorkspace.launchApplication(_:)`。
-- **版本更新**：將對外顯示版本號調整為 2.1，使 App 內版本與 GitHub 發行標籤一致（先前 plist 仍為 1.4，但最新發行版本已標記為 v2.0）。
-
----
-
-### `/// 安裝`
-
-本儲存庫目前未發布自己的 Release 或可下載的 DMG。請依照[從原始碼建置](#build-from-source)的步驟在本機建置，或開啟 Xcode 專案並選擇 **Product → Build**。
-
-建置完成後，啟動 `Click2Minimize.app`，並前往「系統設定 → 隱私權與安全性 → 輔助使用」授予**輔助使用**權限。如果你使用 Catalyst／Electron App，且希望備援機制順利運作，請在 macOS 提示時一併授予**自動化**權限。
-
-本機建置的發行版本採用 ad-hoc 簽署，因此首次啟動時可能需要按右鍵 → **打開**，才能通過 Gatekeeper 檢查。
-
----
-
-<a id="build-from-source"></a>
-
-### `/// 從原始碼建置`
+此衍生版本目前**沒有可下載的 Release**，請在本機建置：
 
 ```bash
 git clone https://github.com/chengen1018/Click2Minimize.git
 cd Click2Minimize
-
-# 在 Xcode 中開啟專案
-open Click2Minimize.xcodeproj
-
-# 將 Release 版本建置至 ./build
 xcodebuild -project Click2Minimize.xcodeproj -scheme Click2Minimize \
   -configuration Release -derivedDataPath build
-
-# 或在 ./dist 中產生完整的 DMG
-./build_dmg.sh
 ```
 
-需要 Xcode 15 以上版本，目標系統為 macOS 13.0 以上版本。
+App 位於 `build/Build/Products/Release/Click2Minimize.app`。可以將它移到「應用程式」資料夾後啟動。若要建立臨時簽署的通用架構 DMG，改執行 `./build_dmg.sh`，輸出會位於 `dist/Click2Minimize.dmg`。
 
----
+1. 到「**系統設定 → 隱私權與安全性 → 輔助使用**」允許 Click2Minimize，授權後重新啟動 App。
+2. macOS 詢問時，允許「**自動化 → System Events**」，讓程式讀取 Dock 圖示的名稱與位置。
+3. 從選單列圖示開啟設定，可以開關此功能或啟用「**登入時啟動**」。預設會啟用縮小／還原功能，登入時啟動則預設關閉。
 
-### `/// 授權`
+> 本機建置並以臨時憑證簽署的 App，首次啟動時可能需要在 Finder 中按右鍵選擇「打開」。
 
-本專案採用 [PolyForm Noncommercial 1.0.0](LICENSE) 授權。以下為簡要說明：
+## 架構與運作流程
 
-- **允許**：閱讀、學習、個人使用、興趣用途、非營利／教育／研究用途、建立分支以改進專案，以及在相同授權條款下散布你的分支版本。
-- **不允許**：納入付費產品、販售相關支援服務、嵌入商業軟體，或用於任何商業用途。
+<p align="center"><img src="assets/architecture-zh-TW.svg" alt="架構圖：工作空間通知更新 Dock 資料；滑鼠點擊經過 Dock 項目比對與條件檢查後，使用輔助使用 API 縮小或還原視窗" width="100%"></p>
 
-在重新散布或發布修改內容前，請閱讀 [LICENSE](LICENSE) 與 [NOTICE.md](NOTICE.md)。
+兩條流程透過快取的 Dock 資料銜接：
 
----
+- **更新 Dock 資料：**`NSWorkspace` 的 App 啟動、啟用、結束與空間切換通知，經過 300 毫秒防抖動後，以 AppleScript 向 System Events 讀取 Dock 項目名稱與範圍。
+- **處理點擊：**`CGEvent` 事件監聽取得滑鼠左鍵按下事件，比對快取的 Dock 項目，再檢查功能是否啟用、App 是否正在使用中，以及最前方 App 是否處於全螢幕。
+- **操作視窗：**`AXUIElement` 讀取 App 視窗。只要有可見視窗，就優先縮小；若沒有可見視窗，則還原已縮小視窗。無需操作時，將原點擊交還 macOS。
+
+目前的啟動流程不會呼叫更新檢查函式。讀取 Dock 資料需仰賴 macOS 的「輔助使用」與「自動化」權限。
+
+## 本版本的改動
+
+- 優先縮小可見視窗；再點擊時，會還原所有符合條件的已縮小視窗，包括先前手動縮小的視窗。
+- Finder 只處理標準 Finder 視窗。
+- 依序操作多個視窗，以配合輔助使用視窗清單可能非同步更新的 App。
+- 加入視窗操作判斷的本機測試。變更記錄請參閱 [CHANGELOG.md](CHANGELOG.md)。
+
+## 專案來源與授權
+
+原始專案是 [Hatim El Hassak 的 Click2Minimize](https://github.com/hatimhtm/Click2Minimize)。本儲存庫是以它為基礎的衍生作品，並非獨立從零實作。原始作品及衍生部分仍受 [PolyForm Noncommercial 1.0.0](LICENSE) 授權條款規範。重新散布或修改專案前，請閱讀 [NOTICE.md](NOTICE.md) 與 [LICENSE](LICENSE)。

@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="770" viewBox="0 0 1080 770" role="img" aria-labelledby="title desc">
+<title id="title">System architecture</title><desc id="desc">Two data paths meet at a Dock click</desc>
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#68808C"/></marker>
+<marker id="cache-arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#439B9B"/></marker></defs>
+<rect width="1080" height="770" rx="24" fill="#F7F9F5"/>
+<rect x="1" y="1" width="1078" height="768" rx="23" fill="none" stroke="#D8E2DE" stroke-width="2"/>
+<rect x="0" y="0" width="1080" height="9" rx="4" fill="#C8F36B"/>
+<text x="42" y="64" fill="#172433" font-size="30" font-weight="800" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang TC', 'Noto Sans CJK TC', Arial, sans-serif" >System architecture</text>
+<text x="42" y="91" fill="#60717B" font-size="16" font-weight="500" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang TC', 'Noto Sans CJK TC', Arial, sans-serif" >Two data paths meet at a Dock click</text>
+<text x="42" y="137" fill="#466A78" font-size="14" font-weight="800" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang TC', 'Noto Sans CJK TC', Arial, sans-serif" letter-spacing="1">01  REFRESH THE DOCK MAP</text>
+<text x="42" y="346" fill="#466A78" font-size="14" font-weight="800" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang TC', 'Noto Sans CJK TC', Arial, sans-serif" letter-spacing="1">02  HANDLE A MOUSE CLICK</text>
+<text x="42" y="555" fill="#466A78" font-size="14" font-weight="800" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang TC', 'Noto Sans CJK TC', Arial, sans-serif" letter-spacing="1">03  CHOOSE A WINDOW ACTION</text>
+<rect x="42" y="159" width="215" height="106" rx="15" fill="#FFFFFF" stroke="#D7E1E3" stroke-width="1.5"/>
+<circle cx="70" cy="187" r="15" fill="#BBDDEF"/>
+<text x="70" y="192" fill="#172433" font-size="12" font-weight="800" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang TC', 'Noto Sans CJK TC', Arial, sans-serif" text-anchor="middle">1</text>
+<text x="93" y="193" fill="#172433" font-size="18" font-weight="760" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang TC', 'Noto Sans CJK TC', Arial, sans-serif" >Workspace events</text>
+<text x="62" y="227" fill="#4C626E" font-size="14" font-weight="500" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang TC', 'Noto Sans CJK TC', Arial, sans-serif" >Launch / activate / quit</text>
+<text x="62" y="249" fill="#4C626E" font-size="14" font-weight="500" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang TC', 'Noto Sans CJK TC', Arial, sans-serif" >and Space changes</text>
+<rect x="297" y="159" width="215" height="106" rx="15" fill="#FFFFFF" stroke="#D7E1E3" stroke-width="1.5"/>
+<circle cx="325" cy="187" r="15" fill="#BBDDEF"/>
+<text x="325" y="192" fill="#172433" font-size="12" font-weight="800" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang TC', 'Noto Sans CJK TC', Arial, sans-serif" text-anchor="middle">2</text>
+<text x="348" y="193" fill="#172433" font-size="18" font-weight="760" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang TC', 'Noto Sans CJK TC', Arial, sans-serif" >300 ms debounce</text>
+<text x="317" y="227" fill="#4C626E" font-size="14" font-weight="500" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang TC', 'Noto Sans CJK TC', Arial, sans-serif" >Coalesce event bursts</text>
+<text x="317" y="249" fill="#4C626E" font-size="14" font-weight="500" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang TC', 'Noto Sans CJK TC', Arial, sans-serif" >into one refresh</text>
+<rect x="552" y="159" width="215" height="106" rx="15" fill="#FFFFFF" stroke="#D7E1E3" stroke-width="1.5"/>
+<circle cx="580" cy="187" r="15" fill="#BBDDEF"/>
+<text x="580" y="192" fill="#172433" font-size="12" font-weight="800" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang TC', 'Noto Sans CJK TC', Arial, sans-serif" text-anchor="middle">3</text>
+<text x="603" y="193" fill="#172433" font-size="18" font-weight="760" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang TC', 'Noto Sans CJK TC', Arial, sans-serif" >System Events</text>
+<text x="572" y="227" fill="#4C626E" font-size="14" font-weight="500" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang TC', 'Noto Sans CJK TC', Arial, sans-serif" >AppleScript reads</text>
+<text x="572" y="249" fill="#4C626E" font-size="14" font-weight="500" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang TC', 'Noto Sans CJK TC', Arial, sans-serif" >Dock UI elements</text>
+<rect x="807" y="159" width="215" height="106" rx="15" fill="#FFFFFF" stroke="#D7E1E3" stroke-width="1.5"/>
+<circle cx="835" cy="187" r="15" fill="#BBDDEF"/>
+<text x="835" y="192" fill="#172433" font-size="12" font-weight="800" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang TC', 'Noto Sans CJK TC', Arial, sans-serif" text-anchor="middle">4</text>
+<text x="858" y="193" fill="#172433" font-size="18" font-weight="760" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang TC', 'Noto Sans CJK TC', Arial, sans-serif" >Dock map cache</text>
+<text x="827" y="227" fill="#4C626E" font-size="14" font-weight="500" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang TC', 'Noto Sans CJK TC', Arial, sans-serif" >Icon bounds + names</text>
+<text x="827" y="249" fill="#4C626E" font-size="14" font-weight="500" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang TC', 'Noto Sans CJK TC', Arial, sans-serif" >used for hit-testing</text>
+<path d="M262 212H284" fill="none" stroke="#68808C" stroke-width="2.5" marker-end="url(#arrow)"/>
+<path d="M517 212H539" fill="none" stroke="#68808C" stroke-width="2.5" marker-end="url(#arrow)"/>
+<path d="M772 212H794" fill="none" stroke="#68808C" stroke-width="2.5" marker-end="url(#arrow)"/>
+<path d="M914 265V300H404V371" fill="none" stroke="#439B9B" stroke-width="2.5" stroke-dasharray="6 6" marker-end="url(#cache-arrow)"/>
+<text x="561" y="293" fill="#287C7B" font-size="13" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang TC', 'Noto Sans CJK TC', Arial, sans-serif" >cached icon positions</text>
+<rect x="42" y="368" width="215" height="106" rx="15" fill="#FFFFFF" stroke="#D7E1E3" stroke-width="1.5"/>
+<circle cx="70" cy="396" r="15" fill="#C8F36B"/>
+<text x="70" y="401" fill="#172433" font-size="12" font-weight="800" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang TC', 'Noto Sans CJK TC', Arial, sans-serif" text-anchor="middle">1</text>
+<text x="93" y="402" fill="#172433" font-size="18" font-weight="760" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang TC', 'Noto Sans CJK TC', Arial, sans-serif" >Left mouse-down</text>
+<text x="62" y="436" fill="#4C626E" font-size="14" font-weight="500" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang TC', 'Noto Sans CJK TC', Arial, sans-serif" >CGEvent tap captures</text>
+<text x="62" y="458" fill="#4C626E" font-size="14" font-weight="500" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang TC', 'Noto Sans CJK TC', Arial, sans-serif" >the click position</text>
+<rect x="297" y="368" width="215" height="106" rx="15" fill="#FFFFFF" stroke="#D7E1E3" stroke-width="1.5"/>
+<circle cx="325" cy="396" r="15" fill="#C8F36B"/>
+<text x="325" y="401" fill="#172433" font-size="12" font-weight="800" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang TC', 'Noto Sans CJK TC', Arial, sans-serif" text-anchor="middle">2</text>
+<text x="348" y="402" fill="#172433" font-size="18" font-weight="760" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang TC', 'Noto Sans CJK TC', Arial, sans-serif" >Dock hit-test</text>
+<text x="317" y="436" fill="#4C626E" font-size="14" font-weight="500" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang TC', 'Noto Sans CJK TC', Arial, sans-serif" >Match the click against</text>
+<text x="317" y="458" fill="#4C626E" font-size="14" font-weight="500" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang TC', 'Noto Sans CJK TC', Arial, sans-serif" >cached icon bounds</text>
+<rect x="552" y="368" width="215" height="106" rx="15" fill="#FFFFFF" stroke="#D7E1E3" stroke-width="1.5"/>
+<circle cx="580" cy="396" r="15" fill="#C8F36B"/>
+<text x="580" y="401" fill="#172433" font-size="12" font-weight="800" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang TC', 'Noto Sans CJK TC', Arial, sans-serif" text-anchor="middle">3</text>
+<text x="603" y="402" fill="#172433" font-size="18" font-weight="760" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang TC', 'Noto Sans CJK TC', Arial, sans-serif" >Check conditions</text>
+<text x="572" y="436" fill="#4C626E" font-size="14" font-weight="500" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang TC', 'Noto Sans CJK TC', Arial, sans-serif" >Enabled; app active</text>
+<text x="572" y="458" fill="#4C626E" font-size="14" font-weight="500" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang TC', 'Noto Sans CJK TC', Arial, sans-serif" >Not fullscreen; not ignored</text>
+<rect x="807" y="368" width="215" height="106" rx="15" fill="#FFFFFF" stroke="#D7E1E3" stroke-width="1.5"/>
+<circle cx="835" cy="396" r="15" fill="#C8F36B"/>
+<text x="835" y="401" fill="#172433" font-size="12" font-weight="800" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang TC', 'Noto Sans CJK TC', Arial, sans-serif" text-anchor="middle">4</text>
+<text x="858" y="402" fill="#172433" font-size="18" font-weight="760" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang TC', 'Noto Sans CJK TC', Arial, sans-serif" >Read app windows</text>
+<text x="827" y="436" fill="#4C626E" font-size="14" font-weight="500" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang TC', 'Noto Sans CJK TC', Arial, sans-serif" >AXUIElement collects</text>
+<text x="827" y="458" fill="#4C626E" font-size="14" font-weight="500" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang TC', 'Noto Sans CJK TC', Arial, sans-serif" >eligible windows</text>
+<path d="M262 421H284" fill="none" stroke="#68808C" stroke-width="2.5" marker-end="url(#arrow)"/>
+<path d="M517 421H539" fill="none" stroke="#68808C" stroke-width="2.5" marker-end="url(#arrow)"/>
+<path d="M772 421H794" fill="none" stroke="#68808C" stroke-width="2.5" marker-end="url(#arrow)"/>
+<path d="M914 474V517H538M538 517H181M538 517H897" fill="none" stroke="#68808C" stroke-width="2.5"/>
+<path d="M181 517V570" fill="none" stroke="#68808C" stroke-width="2.5" marker-end="url(#arrow)"/>
+<path d="M538 517V570" fill="none" stroke="#68808C" stroke-width="2.5" marker-end="url(#arrow)"/>
+<path d="M897 517V570" fill="none" stroke="#68808C" stroke-width="2.5" marker-end="url(#arrow)"/>
+<rect x="42" y="583" width="281" height="92" rx="15" fill="#EAF8D7" stroke="#D3DFDB" stroke-width="1.5"/>
+<text x="62" y="618" fill="#172433" font-size="17" font-weight="760" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang TC', 'Noto Sans CJK TC', Arial, sans-serif" >Visible windows exist</text>
+<text x="62" y="650" fill="#36505E" font-size="15" font-weight="550" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang TC', 'Noto Sans CJK TC', Arial, sans-serif" >Minimize visible windows</text>
+<rect x="399" y="583" width="281" height="92" rx="15" fill="#E7F4F4" stroke="#D3DFDB" stroke-width="1.5"/>
+<text x="419" y="618" fill="#172433" font-size="17" font-weight="760" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang TC', 'Noto Sans CJK TC', Arial, sans-serif" >Else, minimized exist</text>
+<text x="419" y="650" fill="#36505E" font-size="15" font-weight="550" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang TC', 'Noto Sans CJK TC', Arial, sans-serif" >Restore minimized windows</text>
+<rect x="756" y="583" width="281" height="92" rx="15" fill="#EDF0F1" stroke="#D3DFDB" stroke-width="1.5"/>
+<text x="776" y="618" fill="#172433" font-size="17" font-weight="760" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang TC', 'Noto Sans CJK TC', Arial, sans-serif" >Blocked or no windows</text>
+<text x="776" y="650" fill="#36505E" font-size="15" font-weight="550" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang TC', 'Noto Sans CJK TC', Arial, sans-serif" >Let macOS handle click</text>
+<path d="M42 708H1038" stroke="#D8E2DE"/>
+<text x="42" y="738" fill="#60717B" font-size="14" font-weight="550" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang TC', 'Noto Sans CJK TC', Arial, sans-serif" >Accessibility: event tap + window actions    /    Automation: System Events Dock query</text>
+</svg>
