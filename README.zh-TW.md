@@ -3,26 +3,28 @@
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="assets/hero-banner-zh-TW-dark.svg">
-    <img src="assets/hero-banner-zh-TW.svg" alt="Click2Minimize：點擊目前使用中 App 的 Dock 圖示，即可縮小或還原視窗" width="100%">
+    <img src="assets/hero-banner-zh-TW.svg" alt="Click2Minimize：讓 macOS Dock 擁有類似 Windows 工作列的視窗切換操作" width="100%">
   </picture>
 </p>
 
-<p align="center"><strong>點一下 Dock 圖示，讓視窗暫時退到一旁。</strong><br>
-Click2Minimize 是一款輕巧的 macOS 選單列工具，讓目前使用中 App 的 Dock 圖示成為縮小與還原視窗的開關。</p>
+<p align="center"><strong>把 Windows 工作列的點擊手感帶到 macOS Dock。</strong><br>
+第一次點擊圖示，照 macOS 原本方式開啟 App 或把現有視窗帶到前景；當 App 已在前景，再點同一圖示就縮小可見視窗；若只剩已縮小的視窗，再點一次便還原。</p>
 
 <p align="center">macOS 13+ · Swift 5 · Xcode 15+ 建置 · <a href="LICENSE">PolyForm Noncommercial 1.0.0</a></p>
 
-> **關於這個衍生版本：**本專案以 [Hatim El Hassak 的 Click2Minimize](https://github.com/hatimhtm/Click2Minimize) 為基礎，由 Chengen 維護。請參閱[本版本的改動](#本版本的改動)、[NOTICE.md](NOTICE.md) 與[授權條款](LICENSE)。
+> **關於這個衍生版本：** 本專案以 [Hatim El Hassak 的 Click2Minimize](https://github.com/hatimhtm/Click2Minimize) 為基礎，由 Chengen 維護。請參閱 [本版本的改動](#本版本的改動)、[NOTICE.md](NOTICE.md) 與 [授權條款](LICENSE)。
 
-## 點擊後會發生什麼事？
+## 像 Windows 工作列一樣點擊
 
-| 點擊的 Dock 項目 | 結果 |
-| --- | --- |
-| 目前使用中的 App，且有可見視窗 | 將符合條件的可見視窗縮到最小。 |
-| 目前使用中的 App，沒有可見視窗但有已縮小視窗 | 還原符合條件的已縮小視窗，包括先前手動縮小的視窗。 |
-| 其他 App、Launchpad／垃圾桶／下載項目，或最前方 App 處於全螢幕 | 由 macOS 照原本方式處理點擊。 |
+第一次點擊維持 macOS 原本的行為；點擊 **已在前景的 App** 圖示時，Click2Minimize 才會接手切換視窗狀態：
 
-切換依據是 App 當下的視窗狀態；程式不另外記錄哪些視窗是由自己縮小的。對 Finder，程式只處理標準 Finder 視窗。若某個 App 沒有透過 macOS「輔助使用」公開視窗，則可能無法操作。
+| 步驟 | 點擊 Dock 圖示時 | 會發生什麼事 |
+| --- | --- | --- |
+| **1 · 開啟或切換** | App 尚未在前景。 | 由 macOS 啟動或切換到 App，並照原本方式顯示已有視窗。 |
+| **2 · 縮小** | App 已在前景，而且有可見視窗。 | Click2Minimize 將符合條件的可見視窗縮到最小。 |
+| **3 · 還原** | App 仍在前景，沒有可見視窗，但有已縮小的視窗。 | Click2Minimize 還原符合條件的已縮小視窗，包括先前手動縮小的視窗。 |
+
+點擊 Launchpad、垃圾桶、下載項目，或最前方 App 處於全螢幕時，仍由 macOS 照原本方式處理。切換依據是 App 當下的視窗狀態，程式不另外記錄哪些視窗是由自己縮小的。對 Finder，程式只處理標準 Finder 視窗。若某個 App 沒有透過 macOS「輔助使用」公開視窗，則可能無法操作。
 
 ## 開始使用
 

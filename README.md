@@ -3,26 +3,28 @@
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="assets/hero-banner-dark.svg">
-    <img src="assets/hero-banner.svg" alt="Click2Minimize: click the active app's Dock icon to minimize or restore its windows" width="100%">
+    <img src="assets/hero-banner.svg" alt="Click2Minimize brings a Windows-style window toggle to the macOS Dock" width="100%">
   </picture>
 </p>
 
-<p align="center"><strong>One Dock click. All your windows, out of the way.</strong><br>
-A small macOS menu bar app that makes the active app's Dock icon a minimize/restore toggle.</p>
+<p align="center"><strong>Make the macOS Dock behave more like the Windows taskbar.</strong><br>
+Click an app's icon to launch it or bring its existing windows forward as usual. When that app is already in front, click again to minimize its visible windows; if only minimized windows remain, click again to restore them.</p>
 
 <p align="center">macOS 13+ · Swift 5 · Build with Xcode 15+ · <a href="LICENSE">PolyForm Noncommercial 1.0.0</a></p>
 
 > **About this fork:** This is a derivative of [Hatim El Hassak's Click2Minimize](https://github.com/hatimhtm/Click2Minimize), maintained by Chengen. See [what changed](#what-this-fork-changes), [NOTICE.md](NOTICE.md), and the [license](LICENSE).
 
-## What happens when you click?
+## A familiar click cycle
 
-| Dock click | Result |
-| --- | --- |
-| Active app with visible windows | Minimize its eligible visible windows. |
-| Active app with no visible windows, but minimized windows | Restore its eligible minimized windows, including ones minimized by hand. |
-| Another app, Launchpad / Trash / Downloads, or a fullscreen frontmost app | Leave the click to macOS. |
+The first click follows macOS's normal behavior. Click2Minimize takes over when you click the Dock icon of an app that is already active:
 
-The toggle uses the app's current window state; it does not keep a separate list of windows that *it* minimized. For Finder, it only targets standard Finder windows. Apps that do not expose their windows through macOS Accessibility may not respond.
+| Step | When you click the Dock icon | What happens |
+| --- | --- | --- |
+| **1 · Open or switch** | The app is not in front. | macOS launches or activates the app and brings forward its existing windows as usual. |
+| **2 · Minimize** | The app is active and has visible windows. | Click2Minimize minimizes its eligible visible windows. |
+| **3 · Restore** | The app is still active, with no visible windows but some minimized ones. | Click2Minimize restores its eligible minimized windows, including ones minimized by hand. |
+
+Clicks on Launchpad, Trash, Downloads, or while the frontmost app is fullscreen keep their normal macOS behavior. The toggle uses the app's current window state rather than remembering which windows it minimized. For Finder, it only targets standard Finder windows. Apps that do not expose their windows through macOS Accessibility may not respond.
 
 ## Get started
 
