@@ -43,13 +43,6 @@ macOS handles the first click that launches or activates an app. Click2Minimize 
 
 If an app has both visible and minimized windows, the visible ones take priority. The next click restores eligible minimized windows, including windows you minimized manually.
 
-## Features
-
-- Toggle multiple windows with one Dock click.
-- Restore windows based on their current state, including manually minimized windows.
-- Handle standard Finder windows without toggling other Finder window types.
-- Turn the feature on or off from the menu bar, and optionally launch at login.
-
 ## Get started
 
 Build this fork locally:
