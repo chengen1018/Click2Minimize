@@ -7,28 +7,52 @@
   </picture>
 </p>
 
-<p align="center"><strong>把 Windows 工作列的點擊手感帶到 macOS Dock。</strong><br>
-第一次點擊圖示，照 macOS 原本方式開啟 App 或把現有視窗帶到前景；當 App 已在前景，再點同一圖示就縮小可見視窗；若只剩已縮小的視窗，再點一次便還原。</p>
+<p align="center"><strong>點擊目前正在使用的 App Dock 圖示，即可縮小它的視窗；再點一次即可還原。</strong><br>
+Click2Minimize 為 macOS Dock 加上視窗切換功能；開啟 App 與切換 App 仍由 macOS 照原本方式處理。</p>
 
 <p align="center">macOS 13+ · Swift 5 · Xcode 15+ 建置 · <a href="LICENSE">PolyForm Noncommercial 1.0.0</a></p>
 
-> **關於這個衍生版本：** 本專案以 [Hatim El Hassak 的 Click2Minimize](https://github.com/hatimhtm/Click2Minimize) 為基礎，由 Chengen 維護。請參閱 [本版本的改動](#本版本的改動)、[NOTICE.md](NOTICE.md) 與 [授權條款](LICENSE)。
+<p align="center"><small>以 <a href="https://github.com/hatimhtm/Click2Minimize">Hatim El Hassak 的 Click2Minimize</a> 為基礎。</small></p>
 
-## 像 Windows 工作列一樣點擊
+## 看看前後差異
 
-第一次點擊維持 macOS 原本的行為；點擊 **已在前景的 App** 圖示時，Click2Minimize 才會接手切換視窗狀態：
+### 使用前 · macOS 預設 Dock
 
-| 步驟 | 點擊 Dock 圖示時 | 會發生什麼事 |
+Chrome 已在前景時，點擊它的 Dock 圖示，視窗仍留在畫面上。
+
+![使用前：點擊已在前景的 Chrome Dock 圖示，視窗仍保持開啟](assets/demo-before.gif)
+
+### 使用後 · Click2Minimize
+
+點擊同一個 Dock 圖示，即可在還原與縮小視窗之間切換。這段錄影中，第一次點擊還原 Chrome，下一次點擊則縮小視窗。
+
+![使用後：點擊已在前景的 Chrome Dock 圖示，先還原再縮小視窗](assets/demo-after.gif)
+
+| 點擊 App 的 Dock 圖示時 | macOS 預設行為 | 使用 Click2Minimize |
 | --- | --- | --- |
-| **1 · 開啟或切換** | App 尚未在前景。 | 由 macOS 啟動或切換到 App，並照原本方式顯示已有視窗。 |
-| **2 · 縮小** | App 已在前景，而且有可見視窗。 | Click2Minimize 將符合條件的可見視窗縮到最小。 |
-| **3 · 還原** | App 仍在前景，沒有可見視窗，但有已縮小的視窗。 | Click2Minimize 還原符合條件的已縮小視窗，包括先前手動縮小的視窗。 |
+| App 尚未開啟或位於背景 | 開啟或切換至 App | 維持 macOS 原本行為 |
+| App 已在前景，且有可見視窗 | App 保持在前景 | **縮小符合條件的可見視窗** |
+| App 已在前景，只剩已縮小的視窗 | 由 Dock 照原本方式處理 | **還原符合條件的已縮小視窗** |
+| 最前方 App 有全螢幕視窗 | 由 Dock 照原本方式處理 | 維持 macOS 原本行為 |
 
-點擊 Launchpad、垃圾桶、下載項目，或最前方 App 處於全螢幕時，仍由 macOS 照原本方式處理。切換依據是 App 當下的視窗狀態，程式不另外記錄哪些視窗是由自己縮小的。對 Finder，程式只處理標準 Finder 視窗。若某個 App 沒有透過 macOS「輔助使用」公開視窗，則可能無法操作。
+## 運作方式
+
+第一次點擊 Dock 圖示時，由 macOS 開啟或切換至 App。只有再次點擊**已在前景的 App** 圖示，Click2Minimize 才會接手：
+
+**開啟或切換（macOS）→ 縮小可見視窗 → 還原已縮小視窗**
+
+如果同一個 App 同時有可見和已縮小的視窗，程式會優先縮小可見視窗。再點一次時，會還原符合條件的已縮小視窗，包括先前手動縮小的視窗。
+
+## 功能特色
+
+- 點擊一次 Dock 圖示，即可切換多個視窗。
+- 根據視窗當下的狀態還原視窗，包括手動縮小的視窗。
+- 只操作標準 Finder 視窗，不切換其他 Finder 視窗類型。
+- 可從選單列開關功能，並可選擇登入時啟動。
 
 ## 開始使用
 
-此衍生版本目前**沒有可下載的 Release**，請在本機建置：
+請在本機建置此衍生版本：
 
 ```bash
 git clone https://github.com/chengen1018/Click2Minimize.git
@@ -39,11 +63,30 @@ xcodebuild -project Click2Minimize.xcodeproj -scheme Click2Minimize \
 
 App 位於 `build/Build/Products/Release/Click2Minimize.app`。可以將它移到「應用程式」資料夾後啟動。若要建立臨時簽署的通用架構 DMG，改執行 `./build_dmg.sh`，輸出會位於 `dist/Click2Minimize.dmg`。
 
+### 所需權限
+
 1. 到「**系統設定 → 隱私權與安全性 → 輔助使用**」允許 Click2Minimize，授權後重新啟動 App。
 2. macOS 詢問時，允許「**自動化 → System Events**」，讓程式讀取 Dock 圖示的名稱與位置。
 3. 從選單列圖示開啟設定，可以開關此功能或啟用「**登入時啟動**」。預設會啟用縮小／還原功能，登入時啟動則預設關閉。
 
 > 本機建置並以臨時憑證簽署的 App，首次啟動時可能需要在 Finder 中按右鍵選擇「打開」。
+
+## 行為與限制
+
+- 點擊 Launchpad、垃圾桶或下載項目時，維持 macOS 原本行為。
+- 最前方 App 有全螢幕視窗時，Click2Minimize 會將點擊交由 macOS 處理。
+- Finder 只切換標準 Finder 視窗。
+- 若 App 沒有透過 macOS「輔助使用」公開視窗，則可能無法操作。
+
+## 為什麼維護這個衍生版本？
+
+此版本著重於多視窗 App、手動縮小的視窗，以及 Finder 的 Dock 切換行為：
+
+- **依目前視窗狀態決定操作：** 只要有可見視窗，就先縮小；若沒有可見視窗，則還原所有符合條件的已縮小視窗，即使那些視窗並非由 Click2Minimize 縮小。
+- **篩選 Finder 視窗：** 只操作標準 Finder 視窗。
+- **依序處理多個視窗：** 逐一操作，以配合部分 App 非同步更新「輔助使用」視窗清單的情況。
+
+變更記錄請參閱 [CHANGELOG.md](CHANGELOG.md)。
 
 ## 架構與運作流程
 
@@ -55,14 +98,7 @@ App 位於 `build/Build/Products/Release/Click2Minimize.app`。可以將它移�
 - **處理點擊：**`CGEvent` 事件監聽取得滑鼠左鍵按下事件，比對快取的 Dock 項目，再檢查功能是否啟用、App 是否正在使用中，以及最前方 App 是否處於全螢幕。
 - **操作視窗：**`AXUIElement` 讀取 App 視窗。只要有可見視窗，就優先縮小；若沒有可見視窗，則還原已縮小視窗。無需操作時，將原點擊交還 macOS。
 
-目前的啟動流程不會呼叫更新檢查函式。讀取 Dock 資料需仰賴 macOS 的「輔助使用」與「自動化」權限。
-
-## 本版本的改動
-
-- 優先縮小可見視窗；再點擊時，會還原所有符合條件的已縮小視窗，包括先前手動縮小的視窗。
-- Finder 只處理標準 Finder 視窗。
-- 依序操作多個視窗，以配合輔助使用視窗清單可能非同步更新的 App。
-- 加入視窗操作判斷的本機測試。變更記錄請參閱 [CHANGELOG.md](CHANGELOG.md)。
+目前的啟動流程不會呼叫更新檢查函式。讀取 Dock 資料需仰賴 macOS 的「輔助使用」與「自動化」權限。視窗操作判斷的本機測試位於 [`Tests/WindowToggleDecisionTests.swift`](Tests/WindowToggleDecisionTests.swift)。
 
 ## 專案來源與授權
 
